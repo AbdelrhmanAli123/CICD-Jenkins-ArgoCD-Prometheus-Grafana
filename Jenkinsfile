@@ -4,7 +4,7 @@ pipeline {
   environment {
     GIT_REPO = 'https://github.com/AbdelrhmanAli123/devops-ci-jenkins-docker-sonarqube'
     GIT_BRANCH = 'main'
-    SCANNER_HOME = tool 'sonarqube';  
+    SCANNER_HOME = tool "sonarqube";  
     IMAGE_NAME = 'abdelrhmandevops/devops-gitops-project'
     scannerHome = tool 'sonarqube'
   }
@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage("Code Checkout from Github") {
           steps {
-            git credentialsId:'github_cred', url: "${GIT_REPO}", branch: 'main'
+            git credentialsId:'github_cred', url: "${GIT_REPO}", branch: "main"    // note: when you refer to the repo link with any variable, you must put this variable between double quotes
           }
       }
       
