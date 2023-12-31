@@ -1,0 +1,50 @@
+pipeline {
+  agent any
+
+  environment {
+    GIT_REPO = 'https://github.com/AbdelrhmanAli123/devops-ci-jenkins-docker-sonarqube'
+    GIT_BRANCH = 'main'
+    SCANNER_HOME = tool 'sonarqube';  
+    IMAGE_NAME = 'abdelrhmandevops/devops-gitops-project'
+    scannerHome = tool 'sonarqube'
+  }
+    // use this stage if your repo is private otherwise don't declare this stage
+    stages {
+        stage("Code Checkout from Github") {
+          steps {
+            git credentialsId:'github_cred', url: '${GIT_REPO}', branch: '${GIT_BRANCH}'
+          }
+      }
+      
+        stage('SonarQube analysis') {
+            steps {
+                script {
+                    // def scannerHome = tool 'sonarqube'     // sonarqube global tool
+                    withSonarQubeEnv('sonarqube') {        // and this is the sonarqube scanner that we passed the token in to authenticate jenkins into sonarqube server 
+                        sh """
+                            ${scannerHome}/bin/sonar-scanner \
+                            -Dsonar.projectKey=sonarqube \
+                            -Dsonar.projectName=sonarqube \
+                            -Dsonar.projectVersion=1.0 \
+                            -Dsonar.sources=src/
+                        """
+                    }
+                }
+            }
+        }
+
+
+      
+        stage('Build Docker Image and push it to DockerHub') {
+            steps {
+                    withCredentials([usernamePassword(credentialsId: 'docker_cred', passwordVariable: 'password', usernameVariable: 'username')]) {
+                sh """ 
+                    docker build . -t  ${IMAGE_NAME}:${BUILD_NUMBER}
+                    docker login -u ${username} -p ${password}
+                    docker push ${IMAGE_NAME}:${BUILD_NUMBER}
+                    """
+                } 
+            }
+        }
+    }
+}
