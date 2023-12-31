@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     def scannerHome = tool 'sonarqube'     // sonarqube global tool
-                    withSonarQubeEnv('sonarqube') {        // and this is the sonarqube scanner that we passed the token in to authenticate jenkins into sonarqube server 
+                    withSonarQubeEnv('sonarqube_server') {        // and this is the sonarqube scanner that we passed the token in to authenticate jenkins into sonarqube server 
                         sh """
                             ${scannerHome}/bin/sonar-scanner \
                             -Dsonar.projectKey=sonarqube \
