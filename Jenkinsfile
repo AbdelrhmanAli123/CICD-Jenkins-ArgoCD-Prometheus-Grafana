@@ -4,7 +4,7 @@ pipeline {
   environment {
     GIT_REPO = 'https://github.com/AbdelrhmanAli123/devops-ci-jenkins-docker-sonarqube'
     GIT_BRANCH = 'main'
-    SCANNER_HOME = tool "sonarqube";  
+    SCANNER_HOME = tool 'sonarqube';  
     IMAGE_NAME = 'abdelrhmandevops/devops-gitops-project'
     scannerHome = tool 'sonarqube'
   }
@@ -19,7 +19,7 @@ pipeline {
         stage('SonarQube analysis') {
             steps {
                 script {
-                    // def scannerHome = tool 'sonarqube'     // sonarqube global tool
+                    def scannerHome = tool 'sonarqube'     // sonarqube global tool
                     withSonarQubeEnv('sonarqube') {        // and this is the sonarqube scanner that we passed the token in to authenticate jenkins into sonarqube server 
                         sh """
                             ${scannerHome}/bin/sonar-scanner \
