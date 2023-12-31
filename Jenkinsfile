@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage("Code Checkout from Github") {
           steps {
-            git credentialsId:'github_cred', url: 'https://github.com/AbdelrhmanAli123/Microservices-EKS-Helm-Jenkins-Challenge', branch: 'main'
+            git credentialsId:'github_cred', url: 'https://github.com/AbdelrhmanAli123/devops-ci-jenkins-docker-sonarqube', branch: 'main'
           }
       }
       
