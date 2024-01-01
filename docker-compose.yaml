@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  nodejs-app:
+    image: abdelrhmandevops/my-app
+    volumes:
+      - ./src:/app/src:ro
+    ports:
+      - 80:8080
+    depends_on:
+      - mongo
+    restart: always
+  mongo:
+    # command: mongod --auth
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: my_db
+
+    volumes:
+      - mongodbdata:/data/db 
+  
+volumes:
+  mongodbdata: {}
