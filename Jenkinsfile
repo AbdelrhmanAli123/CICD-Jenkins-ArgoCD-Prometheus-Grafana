@@ -6,6 +6,8 @@ pipeline {
     GIT_BRANCH = 'main'
     SCANNER_HOME = tool 'sonarqube';  
     IMAGE_NAME = 'abdelrhmandevops/devops-gitops-project'
+    IMAGE_TAG = "${IMAGE_NAME}-${BUILD_NUMBER}"
+    
     scannerHome = tool 'sonarqube'
   }
     // use this stage if your repo is private otherwise don't declare this stage
@@ -54,6 +56,13 @@ pipeline {
                     docker push ${IMAGE_NAME}:${BUILD_NUMBER}
                     """
                 } 
+            }
+        }
+         stage('Trigger Downstream Job') {
+            steps {
+                build(job: 'cd-pipeline', parameters: [
+                    string(name: 'IMAGE_VERSION', value: '${IMAGE_TAG}')
+                ])
             }
         }
     }
