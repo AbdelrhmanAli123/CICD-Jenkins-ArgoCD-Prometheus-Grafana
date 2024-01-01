@@ -61,7 +61,7 @@ pipeline {
          stage('Trigger Downstream Job') {
             steps {
                 build(job: 'cd-pipeline', parameters: [
-                    string(name: 'IMAGE_VERSION', value: '${IMAGE_TAG}')
+                    string(name: 'IMAGE_VERSION', value: "${IMAGE_TAG}")
                 ])
             }
         }
