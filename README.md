@@ -143,15 +143,16 @@ In this project, I implemented a DevOps pipeline with two Git repos. The first, 
     ```bash
     kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.3/cert-manager.yaml
     ```
-7. **Deploy the manifest files using argocd**
-   - first add your repo in the argocd
+7. **Deploy the manifest files using Argocd**
+   - The second repo that will be connected to Argocd, here it is --> "https://github.com/AbdelrhmanAli123/ArgoCD-Repo"
+   - add your repo in the argocd
      ![argooooorepo](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/693f0ece-1c9f-48fe-a9b9-db6250759736)
    - create application on ArgoCD and click on sync
       ![argo-msy](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/0e02622a-a118-41a6-bf68-e0a46387c068)
       ![argoafter](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/5d98bd3f-c141-4667-89ca-37e099639fe8)
-8. **Add another DNS recorded for your Ingress controller**
+9. **Add another DNS recorded for your Ingress controller**
    - ![final dns record](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/96240aab-1e3e-4412-817b-afc879f2aed6)
-9. **Create ingress resource and apply TLS certificate**
+10. **Create ingress resource and apply TLS certificate**
     - create the following resource (ingress resource, ClusterIssuer, Certificate)
    ```bash
     apiVersion: cert-manager.io/v1
@@ -213,7 +214,7 @@ In this project, I implemented a DevOps pipeline with two Git repos. The first, 
         secretName: kubeissuer                                                                    
    ```
 
-10. **Try to access the application to see if the TLS applied correctly !**
+11. **Try to access the application to see if the TLS applied correctly !**
     ### the app works on the /login route !
     ![app-apear](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/5a7d1eab-2878-46c6-a31a-a72907f3fbdb)
     ![cert](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/a899bd9d-82d4-4303-a0e1-323eaff1752d)
@@ -222,7 +223,7 @@ In this project, I implemented a DevOps pipeline with two Git repos. The first, 
       ![after postman](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/4499f341-c28d-4cfd-a61c-fcac7f3e59a6)
 
 
-11. **Instll Prometheus and Grafana using Helm**
+12. **Instll Prometheus and Grafana using Helm**
     ```bash
      helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
      helm repo update
@@ -230,7 +231,7 @@ In this project, I implemented a DevOps pipeline with two Git repos. The first, 
      kubectl port-forward service/grafana 3000:80
     ```
     
-12. **Display the Grafana matrics**
+13. **Display the Grafana matrics**
     
       ![grafana1](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/7dd1ecb3-0bee-44e3-9642-8e7d0057ff3f)
       ![grafana2](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/7b1c34e8-985c-41bd-ad0b-60a47cb508f3)
