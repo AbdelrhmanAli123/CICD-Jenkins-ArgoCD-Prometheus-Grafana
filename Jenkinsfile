@@ -6,7 +6,7 @@ pipeline {
     GIT_BRANCH = 'main'
     SCANNER_HOME = tool 'sonarqube';  
     IMAGE_NAME = 'abdelrhmandevops/devops-gitops-project'
-    IMAGE_TAG = "${IMAGE_NAME}-${BUILD_NUMBER}"
+    IMAGE_TAG = "${IMAGE_NAME}:${BUILD_NUMBER}"
     
     scannerHome = tool 'sonarqube'
   }
