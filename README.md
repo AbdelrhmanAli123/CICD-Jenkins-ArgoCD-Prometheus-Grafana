@@ -1,18 +1,11 @@
-# devops-ci-jenkins-docker-sonarqube
-
 <div align="center">
-  <h1 style="color: red;">Solve microservices-k8s-helm-jenkins task :globe_with_meridians::hammer_and_wrench:</h1>
+  <h1 style="color: red;">devops-ci-jenkins-docker-sonarqube :globe_with_meridians::hammer_and_wrench:</h1>
 </div> 
 
-## :zap: DevOps Assignment
-
-![task](https://github.com/AbdelrhmanAli123/microservices-devops-task/assets/133269614/3b3cc50b-c9d6-47f1-9f2e-8d19b8075a04)
-
-
-## 
 ## :scroll: Overview
 
 In this project, I implemented a DevOps pipeline with two Git repos. The first, managed by Jenkins using two pipeline, the first one automates code quality analysis, Docker image builds and pushes to Docker Hub and triggers the second pipeline to update the manifest files that are uploaded in the other repo. The second repo contains Kubernetes manifests linked to ArgoCD for continuous deployment on an EKS cluster. ArgoCD automates deployment based on changes in manifest files. Utilized HTTPS to secure Jenkins, SonarQube servers, and Kubernetes ingress, I used Prometheus and Grafana, deployed via HELM chart on the cluster, for monitoring both the application and the EKS cluster.
+
 ## :gear: Tools :-
 - Docker
 - sonarqube
