@@ -1,5 +1,5 @@
 <div align="center">
-  <h1 style="color: red;">devops-ci-jenkins-docker-sonarqube :globe_with_meridians::hammer_and_wrench:</h1>
+  <h1 style="color: red;">CICD-Jenkins-ArgoCD-Prometheus-Grafana :globe_with_meridians::hammer_and_wrench:</h1>
 </div> 
 
 ## :scroll: Overview
