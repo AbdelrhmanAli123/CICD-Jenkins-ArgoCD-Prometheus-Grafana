@@ -1,11 +1,8 @@
 import express from 'express'
 import { DB } from './src/DB/mongo-connection.js'
 import router from './src/modules/users/user-route.js'
-import { createClient } from 'redis';
-import { REDIS } from './src/DB/redis-connection.js';
 const app = express()
 
-REDIS()
 DB()
 
 app.use(express.json())
