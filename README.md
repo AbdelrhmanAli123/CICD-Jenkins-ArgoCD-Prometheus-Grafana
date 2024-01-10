@@ -6,31 +6,35 @@
 
 In this project, I implemented a DevOps pipeline with two Git repos. The first, managed by Jenkins using two pipeline, the first one automates code quality analysis, Docker image builds and pushes to Docker Hub and triggers the second pipeline to update the manifest files that are uploaded in the other repo. The second repo contains Kubernetes manifests linked to ArgoCD for continuous deployment on an EKS cluster. ArgoCD automates deployment based on changes in manifest files. Utilized HTTPS to secure Jenkins, SonarQube servers, and Kubernetes ingress, I used Prometheus and Grafana, deployed via HELM chart on the cluster, for monitoring both the application and the EKS cluster.
 
-## :gear: Tools :-
+## :zap: Project design
+
+![final](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/5930bb9f-7c1e-41ee-b7c6-6e599c078a41)
+
+
+## :gear: Tools :
 - Docker
 - sonarqube
+- certbot
 - eksctl
 - kubectl
 - K8S (AWS EKS)
 - Jenkins
 - Argocd
+- cert-manager
 - Helm chart
 - prometheus
 - grafana
 
-## :diamond_shape_with_a_dot_inside: Assumptions
-
-- I assume that you have a basic understanding of Nodejs, Docker, Kubernetes, Helm, jenkins and Amazon EKS.
 
 ## ⌛  Steps
 
 1. **Configure servers**
-  - first server for jenkins
-  - second one for sonarqube
-  - use userdata for installing the jenkins and sonarqube attached in this repo
+  - first server for Jenkins
+  - second one for Sonarqube
+  - use userData for installing the Jenkins and sonarqube attached in this repo
     ![sonar-and-jenkins](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/ffe8af7f-0cf0-4db9-a3ed-428e8f8b2819)
-  - note: I add configuration for Nginx to work as revers proxy and later will install the tls certificate on these servers
-  - create two DNS record type A and map them two the servers IPs
+  - note: I added configuration for Nginx to work as reverse proxy and later will install the tls certificate on these servers
+  - create two DNS record type A and map them two the server's IPs
     ![final dns record jenkins sonarqube](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/025c3cdc-f994-409c-a3e3-fc67a2f88f5e)
   - install the certbot utility to apply the TLS certificate
       ```bash
@@ -44,17 +48,17 @@ In this project, I implemented a DevOps pipeline with two Git repos. The first, 
     ![jenkinstls](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/7c09a482-b933-41f3-ba70-ad650162dabb)
     ![sonartls](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/61582c9b-f4a9-4e44-8cdf-e88ffe1f1ee4)
 
-2. **Configure sonar and jenkins and create two pipeline**
+2. **Configure sonar and Jenkins and create two pipelines**
    - install the required sonarqube plugin
      ![sonar plugin](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/a0fde2f3-f865-48cb-9379-033e8bd24dda)
-   - create project in sonarqube to use its name and key in the sonarqube in Jenkins file
+   - create a project in Sonarqube to use its name and key in the Sonarqube in Jenkins file
      ![Capture](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/c557331b-86de-4605-ac3a-98acda3d2539)
-   - add the domain name of you sonarqube or ip in the sonarqube configuration in jenkins server
+   - add the domain name of you sonarqube or ip in the sonarqube configuration in Jenkins server
      ![sonar-conf](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/8a324cfb-6e8e-466a-81a2-b5486d05f8e6)
-   - create quality gateway in the sonarqube to stop the pipeline if the bugs or any thing else is above the threshold
+   - create a quality gateway in the sonarqube to stop the pipeline if the bugs or any thing else is above the threshold
      ![sonar-conf2](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/cf68119a-d3c4-4cd3-8f37-d6fe3f710169)
-   - create first pipeline to test the code quality and build and push the image to docker hub and trigger the second pipeline
-   - create second pipeline to update the k8s manifest files
+   - create the first pipeline to test the code quality and build and push the image to docker hub and trigger the second pipeline
+   - create a second pipeline to update the k8s manifest files
      ![two-pipe](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/ad61d687-00b7-44f2-9f4f-85ce3d8c6c0f)   
 
 3. **Create the AWS EKS using eksctl tool**
@@ -147,13 +151,13 @@ In this project, I implemented a DevOps pipeline with two Git repos. The first, 
    - The second repo that will be connected to Argocd, here it is --> "https://github.com/AbdelrhmanAli123/ArgoCD-Repo"
    - add your repo in the argocd
      ![argooooorepo](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/693f0ece-1c9f-48fe-a9b9-db6250759736)
-   - create application on ArgoCD and click on sync
+   - create an application on ArgoCD and press the sync button
       ![argo-msy](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/0e02622a-a118-41a6-bf68-e0a46387c068)
       ![argoafter](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/5d98bd3f-c141-4667-89ca-37e099639fe8)
 9. **Add another DNS recorded for your Ingress controller**
    - ![final dns record](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/96240aab-1e3e-4412-817b-afc879f2aed6)
 10. **Create ingress resource and apply TLS certificate**
-    - create the following resource (ingress resource, ClusterIssuer, Certificate)
+    - create the following resources (ingress resource, ClusterIssuer, Certificate)
    ```bash
     apiVersion: cert-manager.io/v1
     kind: ClusterIssuer
@@ -228,7 +232,7 @@ In this project, I implemented a DevOps pipeline with two Git repos. The first, 
      helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
      helm repo update
      helm install prometheus prometheus-community/kube-prometheus-stack
-     kubectl port-forward service/grafana 3000:80
+     kubectl port-forward service/grafana 3000:80 # you can change the service to Nodeport instead of using port-forward
     ```
     
 13. **Display the Grafana matrics**
