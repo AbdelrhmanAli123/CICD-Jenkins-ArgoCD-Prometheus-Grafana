@@ -4,11 +4,11 @@
 
 ## :scroll: Overview
 
-In this project, I implemented a DevOps pipeline with two Git repos. The first, managed by Jenkins using two pipeline, the first one automates code quality analysis, Docker image builds and pushes to Docker Hub and triggers the second pipeline to update the manifest files that are uploaded in the other repo. The second repo contains Kubernetes manifests linked to ArgoCD for continuous deployment on an EKS cluster. ArgoCD automates deployment based on changes in manifest files. Utilized HTTPS to secure Jenkins, SonarQube servers, and Kubernetes ingress, I used Prometheus and Grafana, deployed via HELM chart on the cluster, for monitoring both the application and the EKS cluster.
+In this project, I deployed NodeJs App with mongoDB on EKS cluster, I implemented a DevOps pipeline with two Git repos. The first, managed by Jenkins using two pipeline, the first one automates code quality analysis, Docker image builds and pushes to Docker Hub and triggers the second pipeline to update the manifest files that are uploaded in the other repo. The second repo contains Kubernetes manifests linked to ArgoCD for continuous deployment on an EKS cluster. ArgoCD automates deployment based on changes in manifest files. Utilized HTTPS to secure Jenkins, SonarQube servers, and Kubernetes ingress, I used Prometheus and Grafana deployed via HELM chart on the cluster, for monitoring both the application and the EKS cluster.
 
 ## :zap: Project design
+![project-design](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/02e2301d-8300-4440-8171-b933f51f3fc2)
 
-![final](https://github.com/AbdelrhmanAli123/CICD-Jenkins-ArgoCD-Prometheus-Grafana/assets/133269614/5930bb9f-7c1e-41ee-b7c6-6e599c078a41)
 
 
 ## :gear: Tools :
